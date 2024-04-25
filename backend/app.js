@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import express, {json} from 'express';
+import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import mainRouter from "./routers/index.js";
@@ -15,6 +15,7 @@ connectDb();
 
 app.use(morgan('tiny'));
 app.use(cors());
+app.use(express.json());
 
 app.use('/api', mainRouter);
 
