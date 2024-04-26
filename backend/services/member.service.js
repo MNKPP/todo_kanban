@@ -1,11 +1,11 @@
 import Member from "../models/member.model.js";
 import * as argon2 from 'argon2';
-import chalk from "chalk";
+
 
 const memberService = {
 
-    login: async ({ username, password }) => {
-        const member = await Member.findOne({username});
+    login: async ({ email, password }) => {
+        const member = await Member.findOne({email});
 
         if (!member) {
             throw new Error("Login method service : no member founded !");

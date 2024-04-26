@@ -25,7 +25,7 @@ const memberRegisterValidator = yup.object().shape({
 
 const memberLoginValidator = yup.object().shape({
 
-    username: yup.string()
+    email: yup.string()
         .trim()
         .required(),
 

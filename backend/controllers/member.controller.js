@@ -1,8 +1,6 @@
 import { memberLoginValidator, memberRegisterValidator } from "../validators/member.validator.js";
 import memberService from "../services/member.service.js";
-import {generateJwt} from "../utils/jwt-utils.js";
-import res from "express/lib/response.js";
-
+import { generateJwt } from "../utils/jwt-utils.js";
 
 const memberController = {
 
