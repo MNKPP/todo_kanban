@@ -1,6 +1,7 @@
 import { memberLoginValidator, memberRegisterValidator } from "../validators/member.validator.js";
 import memberService from "../services/member.service.js";
 import {generateJwt} from "../utils/jwt-utils.js";
+import res from "express/lib/response.js";
 
 
 const memberController = {
@@ -26,8 +27,17 @@ const memberController = {
                 });
         }
 
+        const token = await generateJwt(member);
+
+        if (!token) {
+            res.status(500)
+                .json({
+                    errorMessage: 'Login method controller : error generating token !'
+                });
+        }
+
         res.status(200)
-            .json(logedMember);
+            .json({token});
     },
 
     register: async (req, res) => {
@@ -42,6 +52,16 @@ const memberController = {
             });
         }
 
+        // const emailExists = await memberService.checkEmailExist(validatedData.email);
+        //
+        // if (emailExists) {
+        //     res.status(400)
+        //         .json({
+        //             errorMessage: 'Register method controller : email already exists !'
+        //         });
+        //     return;
+        // }
+
         const registeredMember = await memberService.register(validatedData);
 
         if (!registeredMember) {
@@ -51,10 +71,8 @@ const memberController = {
                 });
         }
 
-        const token = await generateJwt(member);
-
         res.status(201)
-            .json({token});
+            .json({registeredMember});
     },
 }
 
