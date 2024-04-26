@@ -1,15 +1,16 @@
 import { useForm } from "react-hook-form";
 import { loginPostRequest } from "../../../services/auth.service.js";
+import { useDispatch } from "react-redux";
+import {setUserToken} from "../../store/member/member-slice.js";
 
 const LoginForm = () => {
+    const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
-
         loginPostRequest(data)
             .then(response => {
-                // TODO : Récupèrer le token pour le mettre dans redux
-                console.log(response.data)
+                dispatch(setUserToken(response.data));
             })
             .catch(error => {
                 throw new Error(error.message);
