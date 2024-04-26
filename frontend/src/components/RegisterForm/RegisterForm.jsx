@@ -1,9 +1,16 @@
 import { useForm } from "react-hook-form";
+import { registerPostRequest } from "../../../services/auth.service.js";
 
 const RegisterForm = () => {
     const { register, handleSubmit } = useForm();
 
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => {
+        registerPostRequest(data)
+            .then(response => {})
+            .catch(error => {
+                throw new Error(error.message);
+            })
+    };
 
     return (
         <>

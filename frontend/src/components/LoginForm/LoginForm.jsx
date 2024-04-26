@@ -1,9 +1,20 @@
 import { useForm } from "react-hook-form";
+import { loginPostRequest } from "../../../services/auth.service.js";
 
 const LoginForm = () => {
     const { register, handleSubmit } = useForm();
 
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => {
+
+        loginPostRequest(data)
+            .then(response => {
+                // TODO : Récupèrer le token pour le mettre dans redux
+                console.log(response.data)
+            })
+            .catch(error => {
+                throw new Error(error.message);
+            })
+    };
 
     return (
         <>
