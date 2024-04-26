@@ -1,11 +1,14 @@
 import './App.css'
+import RegisterForm from "./components/RegisterForm/RegisterForm.jsx";
+import LoginForm from "./components/LoginForm/LoginForm.jsx";
 
 function App() {
 
 
   return (
     <>
-        <h1 className="underline">TodoKanban Project configured.</h1>
+        <RegisterForm />
+        <LoginForm />
     </>
   )
 }
