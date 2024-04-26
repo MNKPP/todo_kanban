@@ -1,13 +1,14 @@
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
+const ProtectedRoute = ({ element }) => {
+    const token = useSelector(state => state.MEMBER.userToken);
 
-const ProtectedRoute = () => {
+    if (!token) {
+        return <Navigate to="/home-page" />
+    }
 
-
-    return (
-        <>
-            <h1>Protected Route</h1>
-        </>
-    )
+    return element;
 }
 
 export default ProtectedRoute;

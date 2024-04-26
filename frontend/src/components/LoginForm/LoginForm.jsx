@@ -1,16 +1,19 @@
 import { useForm } from "react-hook-form";
 import { loginPostRequest } from "../../../services/auth.service.js";
 import { useDispatch } from "react-redux";
-import {setUserToken} from "../../store/member/member-slice.js";
+import { addToken } from "../../store/member/member-slice.js";
+import {useNavigate} from "react-router-dom";
 
 const LoginForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
         loginPostRequest(data)
             .then(response => {
-                dispatch(setUserToken(response.data));
+                dispatch(addToken(response.data.token));
+                navigate("/dashboard");
             })
             .catch(error => {
                 throw new Error(error.message);

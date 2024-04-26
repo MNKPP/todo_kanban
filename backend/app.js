@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import 'express-async-errors';
 import morgan from 'morgan';
 import cors from 'cors';
 import mainRouter from "./routers/index.js";
@@ -10,6 +11,7 @@ dotenv.config();
 const { NODE_ENV, PORT} = process.env;
 
 const app = express();
+
 
 connectDb();
 

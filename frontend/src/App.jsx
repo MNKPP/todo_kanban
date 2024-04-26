@@ -1,14 +1,12 @@
 import './App.css'
-import RegisterForm from "./components/RegisterForm/RegisterForm.jsx";
-import LoginForm from "./components/LoginForm/LoginForm.jsx";
+import { Outlet } from "react-router-dom";
 
 function App() {
 
 
   return (
     <>
-        <RegisterForm />
-        <LoginForm />
+        <Outlet />
     </>
   )
 }
