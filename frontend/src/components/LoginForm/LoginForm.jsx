@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addToken } from "../../store/member/member-slice.js";
 import {useNavigate} from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({ onToggle }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
@@ -35,6 +35,7 @@ const LoginForm = () => {
                 </div>
 
                 <input type="submit" value="Se connecter"/>
+                <button type="button" onClick={onToggle}>S'inscrire</button>
             </form>
         </>
     )

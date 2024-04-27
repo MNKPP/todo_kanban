@@ -8,12 +8,15 @@ export const memberSlice = createSlice({
     name: "memberSlice",
     initialState,
     reducers: {
-      setUserToken: (currentToken, action) => {
-          currentToken.userToken = action.payload;
+      addToken: (state, action) => {
+          state.userToken = action.payload;
       },
+        clearToken : (state) => {
+            state.userToken = null;
+        }
     }
 })
 
 export const memberReducer = memberSlice.reducer;
 
-export const { setUserToken } = memberSlice.actions;
+export const { addToken } = memberSlice.actions;

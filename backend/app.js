@@ -5,6 +5,9 @@ import morgan from 'morgan';
 import cors from 'cors';
 import mainRouter from "./routers/index.js";
 import connectDb from "./models/index.js";
+import expressJSDocSwagger from 'express-jsdoc-swagger';
+import swaggerOption from './swagger.option.js';
+
 
 dotenv.config();
 
@@ -12,6 +15,7 @@ const { NODE_ENV, PORT} = process.env;
 
 const app = express();
 
+expressJSDocSwagger(app)(swaggerOption);
 
 connectDb();
 

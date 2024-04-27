@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { registerPostRequest } from "../../../services/auth.service.js";
 
-const RegisterForm = () => {
+const  RegisterForm = ({ onToggle }) => {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
@@ -37,6 +37,7 @@ const RegisterForm = () => {
                 </div>
 
                 <input type="submit" value="S'enregistrer" />
+                <button type="button" onClick={onToggle}>Se connecter</button>
             </form>
         </>
     )

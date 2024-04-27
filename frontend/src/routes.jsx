@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
-import Dashboard from "./containers/Dashboard.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
-import NotFoundPage from "./containers/NotFoundPage.jsx";
-import HomePage from "./containers/HomePage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
+import HomePage from "./pages/HomePage.jsx";
 
 const router = createBrowserRouter([
     {
