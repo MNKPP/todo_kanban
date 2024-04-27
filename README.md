@@ -33,5 +33,6 @@ This project was born because I couldn't find any tools that helped me organize 
 - mongoose
 - morgan
 - yup
+- express-jsdoc-swagger
 - chalk (dev)
 - nodemon (dev)

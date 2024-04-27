@@ -1,5 +1,13 @@
 import yup from 'yup';
 
+/**
+ * Member model for register
+ * @typedef {object} Member
+ * @property {string} username.required
+ * @property {string} email.required
+ * @property {string} password.required
+ * @property {string} confirm.required
+ */
 const memberRegisterValidator = yup.object().shape({
 
     username: yup.string()
@@ -23,6 +31,12 @@ const memberRegisterValidator = yup.object().shape({
 
 });
 
+/**
+ * Member model for login
+ * @typedef {object} Member
+ * @property {string} email.required
+ * @property {string} password.required
+ */
 const memberLoginValidator = yup.object().shape({
 
     email: yup.string()

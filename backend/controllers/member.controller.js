@@ -4,6 +4,13 @@ import { generateJwt } from "../utils/jwt-utils.js";
 
 const memberController = {
 
+    /**
+     * POST /api/auth/login
+     * @param {object} request.body - Member Data
+     * @return {string} 200 - Generated Token - application/json
+     * @return 404 - Not found
+     * @return 500 - Error Generated Token
+     */
     login: async (req, res) => {
         const member = req.body;
 
@@ -14,6 +21,7 @@ const memberController = {
             res.json({
                 errorMessage: 'Login method controller : invalid data !'
             });
+            return;
         }
 
         const logedMember = await memberService.login(validatedData);
@@ -23,6 +31,7 @@ const memberController = {
                 .json({
                     errorMessage: 'Login method controller : no member founded !'
                 });
+            return;
         }
 
         const token = await generateJwt(member);
@@ -32,12 +41,19 @@ const memberController = {
                 .json({
                     errorMessage: 'Login method controller : error generating token !'
                 });
+            return;
         }
 
         res.status(200)
             .json({token});
     },
 
+    /**
+     * POST /api/auth/register
+     * @param {object} request.body - Member Data
+     * @return {MemberDto} 201 - Member Data - application/json
+     * @return 404 - Not found
+     */
     register: async (req, res) => {
         const member = req.body;
 
@@ -48,6 +64,7 @@ const memberController = {
             res.json({
                 errorMessage: 'Register method controller : invalid data !'
             });
+            return;
         }
 
         // const emailExists = await memberService.checkEmailExist(validatedData.email);
@@ -67,10 +84,11 @@ const memberController = {
                 .json({
                     errorMessage: 'Login method controller : no member founded !'
                 });
+            return;
         }
 
         res.status(201)
-            .json({registeredMember});
+            .json(registeredMember);
     },
 }
 

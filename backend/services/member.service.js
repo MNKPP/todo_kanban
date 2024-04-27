@@ -1,5 +1,6 @@
 import Member from "../models/member.model.js";
 import * as argon2 from 'argon2';
+import MemberDto from "../dto/member.dto.js";
 
 
 const memberService = {
@@ -33,7 +34,7 @@ const memberService = {
 
         await memberCreated.save()
 
-        return memberCreated;
+        return new MemberDto(memberCreated);
     },
 
     checkEmailExist: (email) => {
