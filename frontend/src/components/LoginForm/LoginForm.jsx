@@ -10,15 +10,16 @@ import { addToken } from "../../store/member/member-slice.js";
 import LoginError from "./LoginError.jsx";
 import { yupResolver } from "@hookform/resolvers/yup";
 import RegisterSuccess from "../RegisterForm/RegisterSuccess.jsx";
+import { isMemberRegister } from "../../store/member/member-slice.js";
+
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const isMemberRegister = useSelector(state => state.MEMBER.isRegister);
+    const isRegister = useSelector(state => state.MEMBER.isRegister);
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(loginSchema)});
     const [isLoginError, setIsLoginError] = useState(false);
 
-    console.log(isMemberRegister)
     const onSubmit = (data) => {
         loginPostRequest(data)
             .then(response => {
@@ -26,6 +27,7 @@ const LoginForm = () => {
                 navigate("/dashboard");
             })
             .catch(error => {
+                dispatch(isMemberRegister())
                 setIsLoginError(true);
                 throw new Error(error.message);
             })
@@ -57,7 +59,7 @@ const LoginForm = () => {
                 </div>
             }
 
-            {isMemberRegister &&
+            {isRegister &&
                 <div className={s['register-success']}>
                     <RegisterSuccess/>
                 </div>

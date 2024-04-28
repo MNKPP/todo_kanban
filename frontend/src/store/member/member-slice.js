@@ -16,7 +16,7 @@ export const memberSlice = createSlice({
             state.userToken = null;
         },
         isMemberRegister: (state) => {
-            state.isRegister = true;
+            state.isRegister = !state.isRegister;
         }
     }
 })

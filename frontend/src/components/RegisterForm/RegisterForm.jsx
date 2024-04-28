@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { registerPostRequest } from "../../../services/auth.service.js";
 import registerSchema from "../../../validators/register.schema.js";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {isMemberRegister} from "../../store/member/member-slice.js";
+import { isMemberRegister } from "../../store/member/member-slice.js";
 
 const  RegisterForm = () => {
     const { register, handleSubmit, setError, formState: { errors } } = useForm({ resolver: yupResolver(registerSchema)});
