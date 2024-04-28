@@ -21,6 +21,8 @@ This project was born because I couldn't find any tools that helped me organize 
 - postcss (dev)
 - tailwindcss (dev)
 - vite (dev)
+- sass
+- lucide-react
 
 ## Backend Dependencies
 

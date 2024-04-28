@@ -1,10 +1,9 @@
-import Authentification from "../container/Authentification.jsx";
 
 const HomePage = () => {
 
     return (
         <>
-            <Authentification />
+            <h1>HomePage</h1>
         </>
     )
 }

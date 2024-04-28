@@ -2,21 +2,25 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     userToken: null,
+    isRegister: false,
 }
 
 export const memberSlice = createSlice({
     name: "memberSlice",
     initialState,
     reducers: {
-      addToken: (state, action) => {
-          state.userToken = action.payload;
-      },
+        addToken: (state, action) => {
+            state.userToken = action.payload;
+        },
         clearToken : (state) => {
             state.userToken = null;
+        },
+        isMemberRegister: (state) => {
+            state.isRegister = true;
         }
     }
 })
 
 export const memberReducer = memberSlice.reducer;
 
-export const { addToken } = memberSlice.actions;
+export const { addToken, clearToken, isMemberRegister } = memberSlice.actions;

@@ -1,0 +1,11 @@
+.header {
+	@apply bg-black p-4 flex justify-between items-center;
+
+	h1 {
+		@apply text-white;
+	}
+}
+
+.footer {
+	@apply bg-black p-4;
+}
