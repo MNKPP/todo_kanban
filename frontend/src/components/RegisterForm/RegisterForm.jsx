@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import { registerPostRequest } from "../../../services/auth.service.js";
 import registerSchema from "../../../validators/register.schema.js";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-const  RegisterForm = ({ onToggle }) => {
+const  RegisterForm = () => {
     const { register, handleSubmit, setError, formState: { errors } } = useForm({ resolver: yupResolver(registerSchema)});
     const navigate = useNavigate();
 
@@ -52,7 +52,7 @@ const  RegisterForm = ({ onToggle }) => {
                 </div>
 
                 <input type="submit" value="S'enregistrer" />
-                <button type="button" onClick={onToggle}>Se connecter</button>
+                <Link to="/login">Se connecter →</Link>
             </form>
         </>
     )

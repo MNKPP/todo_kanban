@@ -3,18 +3,11 @@ import LoginForm from "../components/LoginForm/LoginForm.jsx";
 import {useState} from "react";
 
 const Authentification = () => {
-    const [isToggle, setIsToggle] = useState(false);
-
-    const handleToggle = () => {
-        setIsToggle(!isToggle);
-    };
 
     return (
         <section>
-            { isToggle
-                ? <RegisterForm onToggle={handleToggle}/>
-                : <LoginForm onToggle={handleToggle}/>
-            }
+                <RegisterForm />
+                <LoginForm />
         </section>
     )
 }

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 
 import { loginPostRequest } from "../../../services/auth.service.js";
@@ -9,7 +9,7 @@ import { addToken } from "../../store/member/member-slice.js";
 import LoginError from "./LoginError.jsx";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-const LoginForm = ({ onToggle }) => {
+const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(loginSchema)});
@@ -46,7 +46,7 @@ const LoginForm = ({ onToggle }) => {
                 </div>
 
                 <input type="submit" value="Se connecter"/>
-                <button type="button" onClick={onToggle}>S'inscrire</button>
+                <Link to="/register">S'enregistrer →</Link>
             </form>
         </>
     )
