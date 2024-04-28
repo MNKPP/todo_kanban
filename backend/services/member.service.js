@@ -12,7 +12,7 @@ const memberService = {
             throw new Error("Login method service : no member founded !");
         }
 
-        const pwdIsValid = argon2.verify(member.password, password);
+        const pwdIsValid = await argon2.verify(member.password, password);
 
         if (!pwdIsValid) {
             throw new Error("Login method service : invalid password !")
