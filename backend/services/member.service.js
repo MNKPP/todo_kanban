@@ -37,8 +37,8 @@ const memberService = {
         return new MemberDto(memberCreated);
     },
 
-    checkEmailExist: (email) => {
-        const memberTarget = Member.findOne({ email });
+    checkEmailExist: async (email) => {
+        const memberTarget = await Member.findOne({ email });
 
         return memberTarget !== null;
     }

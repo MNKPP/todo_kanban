@@ -6,12 +6,16 @@ import registerSchema from "../../../validators/register.schema.js";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const  RegisterForm = ({ onToggle }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(registerSchema)});
+    const { register, handleSubmit, setError, formState: { errors } } = useForm({ resolver: yupResolver(registerSchema)});
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
         registerPostRequest(data)
             .then(response => {
+                if (response && response.status === 400) {
+                    setError("email", { message: "Email already exists" });
+                    return;
+                }
                 navigate("/login");
             })
             .catch(error => {

@@ -1,6 +1,7 @@
 import { memberLoginValidator, memberRegisterValidator } from "../validators/member.validator.js";
 import memberService from "../services/member.service.js";
 import { generateJwt } from "../utils/jwt-utils.js";
+import chalk from "chalk";
 
 const memberController = {
 
@@ -67,15 +68,15 @@ const memberController = {
             return;
         }
 
-        // const emailExists = await memberService.checkEmailExist(validatedData.email);
-        //
-        // if (emailExists) {
-        //     res.status(400)
-        //         .json({
-        //             errorMessage: 'Register method controller : email already exists !'
-        //         });
-        //     return;
-        // }
+        const emailExists = await memberService.checkEmailExist(validatedData.email);
+
+        if (emailExists) {
+            res.status(400)
+                .json({
+                    errorMessage: 'Register method controller : email already exists !'
+                });
+            return;
+        }
 
         const registeredMember = await memberService.register(validatedData);
 

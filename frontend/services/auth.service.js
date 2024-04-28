@@ -20,6 +20,10 @@ export const registerPostRequest = async (registerData) => {
     try {
         response = await axios.post(URL_REGISTER, registerData)
     } catch (error) {
+        if (error.response) {
+            return error.response;
+        }
+
         throw new Error(error.message);
     }
 
