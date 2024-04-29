@@ -1,12 +1,7 @@
 import Goal from "../models/goal.model.js";
 import GoalDto from "../dto/goal.dto.js";
-import {Error} from "mongoose";
 
 const goalService = {
-
-    getAll: async () => {
-
-    },
 
     getById: async (id) => {
 
@@ -24,18 +19,18 @@ const goalService = {
         return new GoalDto(createdGoal);
     },
 
-    delete: async (id) => {
-        const goalFounded = await Goal.deleteOne({member_id: id})
-
-        if (!goalFounded) {
-            throw new Error("Goal not found");
-        }
-
-        return goalFounded;
-    },
-
     update: async (id, data) => {
 
+    },
+
+    delete: async (id) => {
+        const goalFound = await Goal.deleteOne({member_id: id})
+
+        if (!goalFound) {
+            throw new Error("Goal service delete method : Goal not found");
+        }
+
+        return goalFound;
     },
 }
 

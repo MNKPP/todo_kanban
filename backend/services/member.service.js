@@ -1,6 +1,8 @@
 import Member from "../models/member.model.js";
 import * as argon2 from 'argon2';
 import MemberDto from "../dto/member.dto.js";
+import Goal from "../models/goal.model.js";
+import goalDto from "../dto/goal.dto.js";
 
 
 const memberService = {
@@ -41,7 +43,17 @@ const memberService = {
         const memberTarget = await Member.findOne({ email });
 
         return memberTarget !== null;
-    }
+    },
+
+    getAllGoalsForMember: async (memberId) => {
+        const goals = await Goal.find({member_id: memberId});
+
+        if (!goals) {
+            throw new Error("Goal service method : goals not found");
+        }
+
+        return goals?.map(goal => new goalDto(goal));
+    },
 }
 
 export default memberService;

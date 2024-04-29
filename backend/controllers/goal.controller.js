@@ -3,10 +3,6 @@ import goalValidator from "../validators/goal.validator.js";
 
 const goalController = {
 
-    getAll: async (req, res) => {
-
-    },
-
     getById: async (req, res) => {
 
     },
