@@ -7,6 +7,8 @@ goalRouter.route('/create')
     .post(goalController.create);
 
 goalRouter.route('/:id')
+    .get(goalController.getById)
+    .put(goalController.update)
     .delete(goalController.delete)
 
 

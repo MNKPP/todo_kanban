@@ -1,12 +1,38 @@
 import goalService from "../services/goal.service.js";
 import goalValidator from "../validators/goal.validator.js";
 
+
 const goalController = {
 
+    /**
+     * GET /api/goal/${id}
+     * @param {string} req.params.id - Goal ID
+     * @return {GoalDto} 200 - Goal data - application/json
+     * @return 404 - Goal not found
+     */
     getById: async (req, res) => {
+        const goalId = req.params.id;
 
+        const goal = await goalService.getById(goalId);
+
+        if (!goal) {
+            res.status(404)
+                .json({
+                    errorMessage: "Goal controller getById method : Goal not found"
+                });
+            return;
+        }
+
+        res.status(200)
+            .json(goal);
     },
 
+    /**
+     * POST /api/goal
+     * @param {object} request.body - Goal data
+     * @return {GoalDto} 201 - Created goal data - application/json
+     * @return 400 - Invalid data or failed to create goal
+     */
     create: async (req, res) => {
         const memberId =  req.token.id;
         const goalData = req.body;
@@ -38,15 +64,21 @@ const goalController = {
 
     },
 
+    /**
+     * DELETE /api/goal/${id}
+     * @param {string} req.params.id - Goal ID
+     * @return 204 - Goal deleted successfully
+     * @return 404 - Goal not found
+     */
     delete: async (req, res) => {
-        const memberId = req.token.id;
+        const goalId = req.params.id;
 
-        const goal = await goalService.delete(memberId);
+        const goal = await goalService.delete(goalId);
 
         if (!goal) {
             res.status(404)
                 .json({
-                    errorMessage: "Goal not found"
+                    errorMessage: "Delete method controller : goal not found !"
                 });
             return;
         }
@@ -54,8 +86,43 @@ const goalController = {
         res.sendStatus(204);
     },
 
+    /**
+     * PUT /api/goal/${id}
+     * @param {object} request.body - Updated goal data
+     * @param {string} req.params.id - Goal ID
+     * @return {GoalDto} 200 - Updated goal data - application/json
+     * @return 400 - Invalid data
+     * @return 404 - Goal not found
+     */
     update: async (req, res) => {
+        const goalId = req.params.id;
+        const goalData = req.body;
 
+        console.log(goalData)
+
+        let validateData;
+        try {
+            validateData = await goalValidator.validate(goalData)
+        } catch (error) {
+            res.status(400)
+                .json({
+                    errorMessage: "Update method controller : invalid data !"
+                });
+            return;
+        }
+
+        const updatedGoal = await goalService.update(goalId, validateData);
+
+        if (!updatedGoal) {
+            res.status(404)
+                .json({
+                    errorMessage: "Update method controller : goal not found !"
+                });
+            return;
+        }
+
+        res.status(200)
+            .json(updatedGoal);
     },
 }
 

@@ -16,8 +16,8 @@ const goalValidator = yup.object().shape({
         .trim(),
 
     isFinished: yup.boolean()
-        .isFalse()
         .required()
+        .default(false)
 })
 
 export default goalValidator;
