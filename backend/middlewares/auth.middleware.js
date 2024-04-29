@@ -1,4 +1,4 @@
-import { decodeJwt } from '../utils/jwt.utils.js';
+import { decodeJwt } from "../utils/jwt-utils.js";
 
 export const authTokenMiddleware = () => {
 

@@ -1,7 +1,6 @@
 import { memberLoginValidator, memberRegisterValidator } from "../validators/member.validator.js";
 import memberService from "../services/member.service.js";
 import { generateJwt } from "../utils/jwt-utils.js";
-import chalk from "chalk";
 
 const memberController = {
 
@@ -13,17 +12,18 @@ const memberController = {
      * @return 500 - Error Generated Token
      */
     login: async (req, res) => {
-        const member = req.body;
+        const memberLoginData = req.body;
 
         let validatedData;
         try {
-            validatedData = await memberLoginValidator.validate(member);
+            validatedData = await memberLoginValidator.validate(memberLoginData);
         } catch (error) {
             res.json({
                 errorMessage: 'Login method controller : invalid data !'
             });
             return;
         }
+
 
         const logedMember = await memberService.login(validatedData);
 
@@ -35,7 +35,7 @@ const memberController = {
             return;
         }
 
-        const token = await generateJwt(member);
+        const token = await generateJwt(logedMember);
 
         if (!token) {
             res.status(500)
@@ -56,11 +56,11 @@ const memberController = {
      * @return 404 - Not found
      */
     register: async (req, res) => {
-        const member = req.body;
+        const memberRegisterData = req.body;
 
         let validatedData;
         try {
-            validatedData = await memberRegisterValidator.validate(member);
+            validatedData = await memberRegisterValidator.validate(memberRegisterData);
         } catch (error) {
             res.json({
                 errorMessage: 'Register method controller : invalid data !'

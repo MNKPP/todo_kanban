@@ -4,6 +4,7 @@ export const generateJwt = ({id, username, role}) => {
     return new Promise((resolve, reject) => {
 
         const data = {id, username, role};
+        console.log(data)
         const secret = process.env.JWT_SECRET
         const options = {
             algorithm: 'HS512',

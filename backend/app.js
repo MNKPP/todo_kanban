@@ -7,6 +7,8 @@ import mainRouter from "./routers/index.js";
 import connectDb from "./models/index.js";
 import expressJSDocSwagger from 'express-jsdoc-swagger';
 import swaggerOption from './swagger.option.js';
+import goalController from "./controllers/goal.controller.js";
+import { authTokenMiddleware } from "./middlewares/auth.middleware.js";
 
 
 dotenv.config();
@@ -22,6 +24,7 @@ connectDb();
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
+app.use(authTokenMiddleware());
 
 app.use('/api', mainRouter);
 
