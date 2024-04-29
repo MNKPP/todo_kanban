@@ -1,7 +1,6 @@
 import { memberLoginValidator, memberRegisterValidator } from "../validators/member.validator.js";
 import memberService from "../services/member.service.js";
 import { generateJwt } from "../utils/jwt-utils.js";
-import goalService from "../services/goal.service.js";
 
 const memberController = {
 
@@ -93,6 +92,12 @@ const memberController = {
             .json(registeredMember);
     },
 
+    /**
+     * GET /api/member/${id}/goals
+     * @param {string} req.token.id - Member id
+     * @return {GoalDto[]} 200 - Member Goals - application/json
+     * @return 404 - Not found
+     */
     getAllGoalsForMember: async (req, res) => {
         const memberId = req.token.id;
 
@@ -101,7 +106,7 @@ const memberController = {
         if (!goalsMember) {
             res.status(404)
                 .json({
-                    errorMessage: "Goals not found"
+                    errorMessage: "GetAllGoalsForMembers method controller : Goals not found"
                 });
             return;
         }
