@@ -24,7 +24,7 @@ const goalSchema = mongoose.Schema({
         type: String,
         trim: true
     },
-    status: {
+    isFinished: {
         type: Boolean,
     },
     member_id: {

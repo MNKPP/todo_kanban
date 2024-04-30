@@ -23,6 +23,7 @@ const LoginForm = () => {
     const onSubmit = (data) => {
         loginPostRequest(data)
             .then(response => {
+                localStorage.setItem('token', response.data.token);
                 dispatch(addToken(response.data.token));
                 navigate("/dashboard");
             })

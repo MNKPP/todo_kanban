@@ -37,6 +37,8 @@ const goalController = {
         const memberId =  req.token.id;
         const goalData = req.body;
 
+        console.log(memberId, goalData)
+
         let validateData;
         try {
             validateData = await goalValidator.validate(goalData)

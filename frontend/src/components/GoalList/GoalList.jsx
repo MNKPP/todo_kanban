@@ -1,40 +1,98 @@
 import s from './GoalList.module.scss';
 import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-react';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createGoal, fetchAllGoalsMember } from "../../../services/goal.service.js";
+import { useDispatch, useSelector } from "react-redux";
+import { addGoalList, addGoal } from "../../store/goal/goal-slice.js";
 
 const GoalList = () => {
     const [isToggle, setIsToggle] = useState();
+    const [goalInput, setGoalInput] = useState();
+    const dispatch = useDispatch();
 
     const handleToggle = () => {
         setIsToggle(!isToggle);
     }
 
+    const handleAddInput = (e) => {
+        setGoalInput(e.target.value);
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        createGoal(goalInput)
+            .then(response => {
+                dispatch(addGoal(response.data));
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    useEffect(() => {
+        fetchAllGoalsMember()
+            .then(response => {
+                dispatch(addGoalList(response.data));
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
     return (
         <>
-            <div className={s['arrow-left']} onClick={handleToggle}>
-                <ArrowLeftToLine/>
-            </div>
-            {isToggle &&
-                <div className={s['goal-list']}>
-                    <div className={s['arrow-right']} onClick={handleToggle}>
-                        <ArrowRightToLine/>
-                    </div>
-                    <h2>Week Goals</h2>
-                    <div className="flex">
-                        <input type="checkbox"/>
-                        <p>Title</p>
-                    </div>
-                    <p>Description</p>
-                    <div className="subtask-list ml-6">
-                        <div className="subtask flex">
-                            <input type="checkbox"/>
-                            <p>Title</p>
+            {
+                isToggle ?
+                    <div className={s['goal-list']}>
+                        <div className={s['arrow-right']} onClick={handleToggle}>
+                            <ArrowRightToLine/>
                         </div>
+                        <h2>Week Goals</h2>
+                        <GoalItem/>
+                        <form className={s['form-add-input']} onSubmit={onSubmit}>
+                            <input id={s['add-input']}
+                                   type="text"
+                                   placeholder="Add goal"
+                                   onChange={handleAddInput}
+                            />
+                        </form>
                     </div>
-                </div>
+                :
+                    <div className={s['arrow-left']} onClick={handleToggle}>
+                        <ArrowLeftToLine/>
+                    </div>
             }
         </>
     )
+}
+
+const GoalItem = () => {
+    const goalsList = useSelector(state => state.GOAL.goalsList);
+
+    return (
+        <>
+            {goalsList.map((goal, index) => (
+                <>
+                    <div className={s['inline-check-title']} key={index}>
+                        <input type="checkbox"/>
+                        <p>{ goal.title }</p>
+                    </div>
+                    <p className={s['description']}>{ goal.description }</p>
+                    {/*<TaskItem/>*/}
+                </>
+            ))}
+        </>
+    );
+}
+
+const TaskItem = () => {
+
+    return (<ul className="subtask-list">
+        <div className="subtask">
+            <input type="checkbox"/>
+            <p>Title</p>
+        </div>
+    </ul>)
 }
 
 export default GoalList;

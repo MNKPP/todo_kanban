@@ -93,8 +93,7 @@ const memberController = {
     },
 
     /**
-     * GET /api/member/${id}/goals
-     * @param {string} req.token.id - Member id
+     * GET /api/member/goals
      * @return {GoalDto[]} 200 - Member Goals - application/json
      * @return 404 - Not found
      */

@@ -1,10 +1,11 @@
 import express from 'express';
 import goalController from "../controllers/goal.controller.js";
+import {authorizeMiddleware} from "../middlewares/auth.middleware.js";
 
 const goalRouter = express.Router();
 
-goalRouter.route('/create')
-    .post(goalController.create);
+goalRouter.route('/')
+    .post(authorizeMiddleware(), goalController.create);
 
 goalRouter.route('/:id')
     .get(goalController.getById)

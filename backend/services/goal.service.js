@@ -14,6 +14,7 @@ const goalService = {
     },
 
     create: async (memberId, data) => {
+
         const createdGoal = new Goal({
             ...data,
             member_id: memberId
