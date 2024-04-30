@@ -1,0 +1,11 @@
+.goal-list {
+	@apply fixed top-0 right-0 bottom-0 bg-white w-56 shadow-lg;
+
+	.arrow-right {
+		@apply absolute top-1/2 right-56
+	}
+}
+
+.arrow-left {
+	@apply fixed top-1/2 right-0
+}
