@@ -3,7 +3,7 @@ import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-react';
 import { useEffect, useState } from "react";
 import {createGoal, fetchAllGoalsMember, updateGoal} from "../../services/goal.service.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addGoalList, addGoal } from "../../store/goal/goal-slice.js";
+import {addGoalList, addGoal, updateGoalInList} from "../../store/goal/goal-slice.js";
 
 const GoalList = () => {
     const [isToggle, setIsToggle] = useState();
@@ -67,12 +67,13 @@ const GoalList = () => {
 }
 
 const GoalItem = () => {
+    const dispatch = useDispatch();
     const goalsList = useSelector(state => state.GOAL.goalsList);
 
     const handleCheckbox = (id, isChecked) => {
         updateGoal(id, {isFinished: isChecked})
             .then(response => {
-                console.log(response)
+                dispatch(updateGoalInList(response.data));
             })
             .catch(error => {
                 console.log("test")
@@ -84,8 +85,17 @@ const GoalItem = () => {
             {goalsList.map((goal) => (
                 <>
                     <div className={s['inline-check-title']} key={ goal.id }>
-                        <input type="checkbox" onChange={(e) => handleCheckbox(goal.id, e.target.checked)}/>
-                        <p>{ goal.title }</p>
+                        { goal.isFinished
+                            ?   <>
+                                    <input type="checkbox" onChange={(e) => handleCheckbox(goal.id, e.target.checked)}/>
+                                    <p className="line-through text-gray-400">{ goal.title }</p>
+                                </>
+                            :   <>
+                                    <input type="checkbox" onChange={(e) => handleCheckbox(goal.id, e.target.checked)}/>
+                                    <p>{ goal.title }</p>
+                                </>
+                        }
+
                     </div>
                     <p className={s['description']}>{ goal.description }</p>
                     {/*<TaskItem/>*/}
