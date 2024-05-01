@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { registerPostRequest } from "../../../services/auth.service.js";
+import { registerPostRequest } from "../../services/auth.service.js";
 import registerSchema from "../../../validators/register.schema.js";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { isMemberRegister } from "../../store/member/member-slice.js";

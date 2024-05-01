@@ -1,5 +1,6 @@
 import goalService from "../services/goal.service.js";
 import goalValidator from "../validators/goal.validator.js";
+import res from "express/lib/response.js";
 
 
 const goalController = {
@@ -100,11 +101,23 @@ const goalController = {
         const goalId = req.params.id;
         const goalData = req.body;
 
-        console.log(goalData)
+        const existingGoal = await goalService.getById(goalId);
+
+        if (!existingGoal) {
+            res.status(404)
+                .json({
+                    errorMessage: "Update method controller : existing goal not found !"
+                });
+            return;
+        }
+
+        existingGoal.title = goalData.data?.title || existingGoal.title;
+        existingGoal.description = goalData.data?.description || existingGoal.description;
+        existingGoal.isFinished = goalData.data?.isFinished || existingGoal.isFinished;
 
         let validateData;
         try {
-            validateData = await goalValidator.validate(goalData)
+            validateData = await goalValidator.validate(existingGoal)
         } catch (error) {
             res.status(400)
                 .json({

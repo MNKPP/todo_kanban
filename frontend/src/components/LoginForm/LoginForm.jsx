@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 
-import { loginPostRequest } from "../../../services/auth.service.js";
+import { loginPostRequest } from "../../services/auth.service.js";
 import loginSchema from "../../../validators/login.schema.js";
 import { addToken } from "../../store/member/member-slice.js";
 import LoginError from "./LoginError.jsx";

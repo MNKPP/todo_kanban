@@ -1,7 +1,7 @@
 import s from './GoalList.module.scss';
 import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-react';
 import { useEffect, useState } from "react";
-import { createGoal, fetchAllGoalsMember } from "../../../services/goal.service.js";
+import {createGoal, fetchAllGoalsMember, updateGoal} from "../../services/goal.service.js";
 import { useDispatch, useSelector } from "react-redux";
 import { addGoalList, addGoal } from "../../store/goal/goal-slice.js";
 
@@ -69,12 +69,23 @@ const GoalList = () => {
 const GoalItem = () => {
     const goalsList = useSelector(state => state.GOAL.goalsList);
 
+    const handleCheckbox = (id, isChecked) => {
+        console.log(isChecked)
+        updateGoal(id, {isFinished: isChecked})
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log("test")
+            })
+    }
+
     return (
         <>
-            {goalsList.map((goal, index) => (
+            {goalsList.map((goal) => (
                 <>
-                    <div className={s['inline-check-title']} key={index}>
-                        <input type="checkbox"/>
+                    <div className={s['inline-check-title']} key={ goal.id }>
+                        <input type="checkbox" onChange={(e) => handleCheckbox(goal.id, e.target.checked)}/>
                         <p>{ goal.title }</p>
                     </div>
                     <p className={s['description']}>{ goal.description }</p>
