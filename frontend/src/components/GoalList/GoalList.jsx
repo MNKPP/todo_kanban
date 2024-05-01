@@ -70,7 +70,6 @@ const GoalItem = () => {
     const goalsList = useSelector(state => state.GOAL.goalsList);
 
     const handleCheckbox = (id, isChecked) => {
-        console.log(isChecked)
         updateGoal(id, {isFinished: isChecked})
             .then(response => {
                 console.log(response)

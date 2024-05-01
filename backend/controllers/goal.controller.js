@@ -103,6 +103,8 @@ const goalController = {
 
         const existingGoal = await goalService.getById(goalId);
 
+        console.log('First', existingGoal)
+
         if (!existingGoal) {
             res.status(404)
                 .json({
@@ -111,9 +113,12 @@ const goalController = {
             return;
         }
 
-        existingGoal.title = goalData.data?.title || existingGoal.title;
-        existingGoal.description = goalData.data?.description || existingGoal.description;
-        existingGoal.isFinished = goalData.data?.isFinished || existingGoal.isFinished;
+        existingGoal.title = goalData.data?.title ?? existingGoal.title;
+        existingGoal.description = goalData.data?.description ?? existingGoal.description;
+        existingGoal.isFinished = goalData.data?.isFinished ?? existingGoal.isFinished;
+
+        console.log('Second', existingGoal)
+
 
         let validateData;
         try {
