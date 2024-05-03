@@ -1,5 +1,4 @@
 import API from "./index.js";
-import * as console from "console";
 
 export const fetchAllGoalsMember = async () => {
     try {
