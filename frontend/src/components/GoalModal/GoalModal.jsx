@@ -2,11 +2,13 @@ import React, { useRef, useState } from "react";
 import s from './GoalModal.module.scss';
 import { XCircle } from "lucide-react";
 import { updateGoal } from "../../services/goal.service.js";
-import { updateGoalInList } from "../../store/goal/goal-slice.js";
-import { useDispatch } from "react-redux";
+import {clearSelectGoal, updateGoalInList} from "../../store/goal/goal-slice.js";
+import {useDispatch, useSelector} from "react-redux";
 
-const GoalModal = ({ goal }) => {
+const GoalModal = () => {
     const dispatch = useDispatch();
+    const goal = useSelector(state => state.GOAL.goalSelected);
+
     const [inputValue, setInputValue] = useState(goal.title);
     const [textAreaValue, setTextAreaValue] = useState(goal.description);
 
@@ -18,6 +20,10 @@ const GoalModal = ({ goal }) => {
         if (!isTitleClick) {
             setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
         }
+    }
+
+    const handleCloseModal = () => {
+        dispatch(clearSelectGoal());
     }
 
     const handleUpdateField = (e) => {
@@ -34,7 +40,7 @@ const GoalModal = ({ goal }) => {
     return (
         <div className={s['goal-modal']}>
             <div className={s['xCircle']}>
-                <XCircle />
+                <XCircle onClick={handleCloseModal} />
             </div>
             <form onSubmit={(e) => e.preventDefault()}>
                 <div>

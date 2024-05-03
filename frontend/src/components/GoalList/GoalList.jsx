@@ -3,13 +3,14 @@ import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-react';
 import {useEffect, useMemo, useState} from "react";
 import {createGoal, fetchAllGoalsMember, updateGoal} from "../../services/goal.service.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addGoalList, addGoal, updateGoalInList } from "../../store/goal/goal-slice.js";
+import {addGoalList, addGoal, updateGoalInList, selectGoal} from "../../store/goal/goal-slice.js";
 import GoalModal from "../GoalModal/GoalModal.jsx";
 
 const GoalList = () => {
     const [isToggle, setIsToggle] = useState();
     const [goalInput, setGoalInput] = useState();
     const dispatch = useDispatch();
+    const goalSelected = useSelector(state => state.GOAL.goalSelected);
 
     const handleToggle = () => {
         setIsToggle(!isToggle);
@@ -49,6 +50,7 @@ const GoalList = () => {
                             <ArrowRightToLine/>
                         </div>
                         <h2>Week Goals</h2>
+                        {goalSelected && <GoalModal />}
                         <GoalItem/>
                         <form className={s['form-add-input']} onSubmit={onSubmit}>
                             <input id={s['add-input']}
@@ -70,10 +72,10 @@ const GoalList = () => {
 const GoalItem = () => {
     const dispatch = useDispatch();
     const goalsList = useSelector(state => state.GOAL.goalsList);
-    const [selectedGoal, setSelectedGoal] = useState(null);
+    // const [selectedGoal, setSelectedGoal] = useState(null);
 
     const handleGoalClick = (goal) => {
-        setSelectedGoal(goal);
+        dispatch((selectGoal(goal)));
     }
 
     const handleCheckbox = (id, isChecked) => {
@@ -90,7 +92,6 @@ const GoalItem = () => {
         <>
             {goalsList.map(goal => (
                 <div className={s['goal-item']} key={goal.id}>
-                    {selectedGoal === goal && <GoalModal goal={goal}/>}
                     <div className={s['inline-check-title']}>
 
                         <input type="checkbox" checked={goal.isFinished}
