@@ -7,7 +7,6 @@ import mainRouter from "./routers/index.js";
 import connectDb from "./models/index.js";
 import expressJSDocSwagger from 'express-jsdoc-swagger';
 import swaggerOption from './swagger.option.js';
-import goalController from "./controllers/goal.controller.js";
 import { authTokenMiddleware } from "./middlewares/auth.middleware.js";
 
 

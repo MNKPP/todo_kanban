@@ -1,7 +1,6 @@
 import goalService from "../services/goal.service.js";
 import goalValidator from "../validators/goal.validator.js";
-import res from "express/lib/response.js";
-
+import GoalDto from "../dto/goal.dto.js";
 
 const goalController = {
 
@@ -14,7 +13,7 @@ const goalController = {
     getById: async (req, res) => {
         const goalId = req.params.id;
 
-        const goal = await goalService.getById(goalId);
+        const goal = await goalService.getById(goalId, GoalDto);
 
         if (!goal) {
             res.status(404)
@@ -38,8 +37,6 @@ const goalController = {
         const memberId =  req.token.id;
         const goalData = req.body;
 
-        console.log(memberId, goalData)
-
         let validateData;
         try {
             validateData = await goalValidator.validate(goalData)
@@ -51,7 +48,7 @@ const goalController = {
             return;
         }
 
-        const goalCreated = await goalService.create(memberId, validateData);
+        const goalCreated = await goalService.create(memberId, validateData, GoalDto);
 
         if (!goalCreated) {
             res.status(400)
@@ -126,7 +123,7 @@ const goalController = {
             return;
         }
 
-        const updatedGoal = await goalService.update(goalId, validateData);
+        const updatedGoal = await goalService.update(goalId, validateData, GoalDto);
 
         if (!updatedGoal) {
             res.status(404)

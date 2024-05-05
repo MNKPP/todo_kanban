@@ -1,9 +1,9 @@
 import s from './GoalList.module.scss';
 import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-react';
-import {useEffect, useMemo, useState} from "react";
-import {createGoal, fetchAllGoalsMember, updateGoal} from "../../services/goal.service.js";
+import  {useEffect, useState } from "react";
+import { createGoal, fetchAllGoalsMember, updateGoal } from "../../services/goal.service.js";
 import { useDispatch, useSelector } from "react-redux";
-import {addGoalList, addGoal, updateGoalInList, selectGoal} from "../../store/goal/goal-slice.js";
+import { addGoalList, addGoal, updateGoalInList, selectGoal  } from "../../store/goal/goal-slice.js";
 import GoalModal from "../GoalModal/GoalModal.jsx";
 
 const GoalList = () => {
@@ -49,7 +49,7 @@ const GoalList = () => {
                         <div className={s['arrow-right']} onClick={handleToggle}>
                             <ArrowRightToLine/>
                         </div>
-                        <h2>Week Goals</h2>
+                        <h2>Week Objectives</h2>
                         {goalSelected && <GoalModal />}
                         <GoalItem/>
                         <form className={s['form-add-input']} onSubmit={onSubmit}>
@@ -72,7 +72,6 @@ const GoalList = () => {
 const GoalItem = () => {
     const dispatch = useDispatch();
     const goalsList = useSelector(state => state.GOAL.goalsList);
-    // const [selectedGoal, setSelectedGoal] = useState(null);
 
     const handleGoalClick = (goal) => {
         dispatch((selectGoal(goal)));
@@ -101,7 +100,7 @@ const GoalItem = () => {
                             {goal.isFinished
                                 ? <>
                                     <p className="line-through text-gray-400">{goal.title}</p>
-                                    <p className={s['description']}>{goal.description}</p>
+                                    <p className={`${s.description} text-gray-400`}>{goal.description}</p>
                                 </>
                                 : <>
                                     <p>{goal.title}</p>
@@ -109,22 +108,11 @@ const GoalItem = () => {
                                 </>
                             }
                         </div>
-
                     </div>
                 </div>
             ))}
         </>
     );
-}
-
-const TaskItem = () => {
-
-    return (<ul className="subtask-list">
-        <div className="subtask">
-        <input type="checkbox"/>
-            <p>Title</p>
-        </div>
-    </ul>)
 }
 
 export default GoalList;
