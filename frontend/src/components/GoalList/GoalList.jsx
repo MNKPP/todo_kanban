@@ -78,7 +78,8 @@ const GoalItem = () => {
     }
 
     const handleCheckbox = (id, isChecked) => {
-        createTask(id, {isFinished: isChecked})
+        console.log(isChecked)
+        updateGoal(id, {isFinished: isChecked})
             .then(response => {
                 dispatch(updateGoalInList(response.data));
             })
