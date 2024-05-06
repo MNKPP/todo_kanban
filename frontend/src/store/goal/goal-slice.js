@@ -32,6 +32,9 @@ export const goalSlice = createSlice({
                 return goal;
             });
         },
+        deleteGoalInList: (state, action) => {
+            state.goalsList = state.goalsList.filter(goal => goal.id !== action.payload.id);
+        },
         selectGoal : (state, action) => {
             state.goalSelected = action.payload;
         },
@@ -43,4 +46,4 @@ export const goalSlice = createSlice({
 
 export const goalReducer = goalSlice.reducer;
 
-export const { addGoalList, addGoal, updateGoalInList, selectGoal, clearSelectGoal, addTaskInGoalList } = goalSlice.actions;
+export const { addGoalList, addGoal, updateGoalInList, selectGoal, clearSelectGoal, addTaskInGoalList, deleteGoalInList } = goalSlice.actions;

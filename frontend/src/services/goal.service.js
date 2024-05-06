@@ -1,4 +1,6 @@
 import API from "./index.js";
+import * as console from "console";
+import error from "eslint-plugin-react/lib/util/error.js";
 
 export const fetchAllGoalsMember = async () => {
     try {
@@ -21,6 +23,15 @@ export const createGoal = async (goalData) => {
 export const updateGoal = async (id, data) => {
     try {
         const response = await API.put(`/goal/${id}`, {data});
+        return response;
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+export const deleteGoal = async (id) => {
+    try {
+        const response = await API.delete(`/goal/${id}`);
         return response;
     } catch(error) {
         console.error(error);

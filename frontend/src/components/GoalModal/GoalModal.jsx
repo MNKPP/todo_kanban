@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import s from './GoalModal.module.scss';
 import { XCircle } from "lucide-react";
-import {createTask, updateGoal} from "../../services/goal.service.js";
-import {addTaskInGoalList, clearSelectGoal, updateGoalInList} from "../../store/goal/goal-slice.js";
+import {createTask, deleteGoal, updateGoal} from "../../services/goal.service.js";
+import {addTaskInGoalList, clearSelectGoal, deleteGoalInList, updateGoalInList} from "../../store/goal/goal-slice.js";
 import { useDispatch, useSelector } from "react-redux";
 import AddGoalButton from "../AddGoalButton/AddGoalButton.jsx";
 
@@ -64,10 +64,22 @@ const GoalModal = () => {
             })
     }
 
+    const handleDeleteGoal = () => {
+        deleteGoal(goal.id)
+            .then(response => {
+                dispatch(deleteGoalInList({id: goal.id}))
+                dispatch(clearSelectGoal());
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     return (
         <div className={s['goal-modal']}>
             <div className={s['xCircle']}>
                 <AddGoalButton buttonValue="Add Task" onClick={handleAddInput}/>
+                <button type="button" onClick={handleDeleteGoal}>Delete</button>
                 <XCircle onClick={handleCloseModal} />
             </div>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -114,6 +126,16 @@ const TaskItem = ({ task }) => {
         <li className={s['subtask']}>
             <input type="checkbox"/>
             <p>{task.title}</p>
+            <select name="input-day" id="">
+                <option value="" selected="selected">----</option>
+                <option value="">Monday</option>
+                <option value="">Tuesday</option>
+                <option value="">Wednesday</option>
+                <option value="">Thursday</option>
+                <option value="">Friday</option>
+                <option value="">Saturday</option>
+                <option value="">Sunday</option>
+            </select>
         </li>
     )
 }
