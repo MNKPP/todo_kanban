@@ -1,7 +1,7 @@
 import s from './GoalList.module.scss';
 import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-react';
-import  {useEffect, useState } from "react";
-import { createGoal, fetchAllGoalsMember, updateGoal } from "../../services/goal.service.js";
+import { useEffect, useState } from "react";
+import {createGoal, createTask, fetchAllGoalsMember, updateGoal} from "../../services/goal.service.js";
 import { useDispatch, useSelector } from "react-redux";
 import { addGoalList, addGoal, updateGoalInList, selectGoal  } from "../../store/goal/goal-slice.js";
 import GoalModal from "../GoalModal/GoalModal.jsx";
@@ -78,7 +78,7 @@ const GoalItem = () => {
     }
 
     const handleCheckbox = (id, isChecked) => {
-        updateGoal(id, {isFinished: isChecked})
+        createTask(id, {isFinished: isChecked})
             .then(response => {
                 dispatch(updateGoalInList(response.data));
             })

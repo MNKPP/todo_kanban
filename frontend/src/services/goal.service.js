@@ -26,3 +26,12 @@ export const updateGoal = async (id, data) => {
         console.error(error);
     }
 }
+
+export const createTask = async (id, data) => {
+    try {
+        const response = await API.post(`/goal/${id}/task`, data);
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+}

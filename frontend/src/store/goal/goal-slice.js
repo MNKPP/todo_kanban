@@ -15,6 +15,12 @@ export const goalSlice = createSlice({
         addGoal: (state, action) => {
             state.goalsList.push(action.payload);
         },
+        addTaskInGoalList: (state, action) => {
+            let goal = state.goalsList.find(goal => goal.id === action.payload.id);
+            if (goal) {
+                goal.tasks.push(action.payload.task);
+            }
+        },
         updateGoalInList: (state, action) => {
             state.goalsList = state.goalsList.map(goal => {
                 if (goal.id === action.payload.id) {
@@ -37,4 +43,4 @@ export const goalSlice = createSlice({
 
 export const goalReducer = goalSlice.reducer;
 
-export const { addGoalList, addGoal, updateGoalInList, selectGoal, clearSelectGoal } = goalSlice.actions;
+export const { addGoalList, addGoal, updateGoalInList, selectGoal, clearSelectGoal, addTaskInGoalList } = goalSlice.actions;
