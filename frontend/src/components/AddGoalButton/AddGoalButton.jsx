@@ -1,11 +1,11 @@
 import s from './AddGoalButton.module.scss';
 
-const AddGoalButton = ({buttonValue, onClick}) => {
+const AddGoalButton = ({buttonValue, onClick, refForward}) => {
 
 
     return (
         <>
-            <input onClick={onClick} className={s['add-goal-input']} type="button" value={buttonValue}/>
+            <input ref={refForward} onClick={onClick} className={s['add-goal-input']} type="button" value={buttonValue}/>
         </>
     )
 }

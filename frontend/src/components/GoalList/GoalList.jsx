@@ -3,14 +3,14 @@ import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-react';
 import { useEffect, useState } from "react";
 import {createGoal, createTask, fetchAllGoalsMember, updateGoal} from "../../services/goal.service.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addGoalList, addGoal, updateGoalInList, selectGoal  } from "../../store/goal/goal-slice.js";
+import {addGoalList, addGoal, updateGoalInList, selectGoal, clearSelectGoal} from "../../store/goal/goal-slice.js";
 import GoalModal from "../GoalModal/GoalModal.jsx";
 
 const GoalList = () => {
-    const [isToggle, setIsToggle] = useState();
-    const [goalInput, setGoalInput] = useState();
+    const [isToggle, setIsToggle] = useState(false);
+    const [goalInput, setGoalInput] = useState('');
     const dispatch = useDispatch();
-    const goalSelected = useSelector(state => state.GOAL.goalSelected);
+    const goalSelected = useSelector(state => !!state.GOAL.goalIdSelected);
 
     const handleToggle = () => {
         setIsToggle(!isToggle);
@@ -25,6 +25,7 @@ const GoalList = () => {
         createGoal(goalInput)
             .then(response => {
                 dispatch(addGoal(response.data));
+                setGoalInput('')
             })
             .catch(error => {
                 console.log(error)
@@ -57,6 +58,7 @@ const GoalList = () => {
                                    type="text"
                                    placeholder="Add goal"
                                    onChange={handleAddInput}
+                                   value={goalInput}
                             />
                         </form>
                     </div>
@@ -74,7 +76,7 @@ const GoalItem = () => {
     const goalsList = useSelector(state => state.GOAL.goalsList);
 
     const handleGoalClick = (goal) => {
-        dispatch((selectGoal(goal)));
+        dispatch((selectGoal(goal.id)));
     }
 
     const handleCheckbox = (id, isChecked) => {

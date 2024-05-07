@@ -2,7 +2,7 @@
 	@apply fixed top-0 right-0 bottom-0 bg-white w-72 shadow-lg p-4;
 
 	.arrow-right {
-		@apply absolute top-1/2 right-72
+		@apply absolute top-1/2 right-72 cursor-pointer;
 	}
 
 	.form-add-input {
@@ -42,5 +42,5 @@
 }
 
 .arrow-left {
-	@apply fixed top-1/2 right-0
+	@apply fixed top-1/2 right-0 cursor-pointer;
 }

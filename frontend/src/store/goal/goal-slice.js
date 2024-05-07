@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     goalsList: [],
-    goalSelected: null
+    goalIdSelected: null
 }
 
 export const goalSlice = createSlice({
@@ -36,10 +36,10 @@ export const goalSlice = createSlice({
             state.goalsList = state.goalsList.filter(goal => goal.id !== action.payload.id);
         },
         selectGoal : (state, action) => {
-            state.goalSelected = action.payload;
+            state.goalIdSelected = action.payload;
         },
         clearSelectGoal: (state) => {
-            state.goalSelected = null;
+            state.goalIdSelected = null;
         }
     }
 })

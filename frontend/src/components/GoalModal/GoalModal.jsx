@@ -8,7 +8,9 @@ import AddGoalButton from "../AddGoalButton/AddGoalButton.jsx";
 
 const GoalModal = () => {
     const dispatch = useDispatch();
-    const goal = useSelector(state => state.GOAL.goalSelected);
+    const { goalsList, goalIdSelected } = useSelector(state => state.GOAL);
+    const goal = goalsList.find(g => g.id === goalIdSelected);
+
     const [isAdd, setIsAdd] = useState(false)
 
     const [inputValue, setInputValue] = useState(goal ? goal.title : '');
@@ -18,12 +20,17 @@ const GoalModal = () => {
     const [isTitleClick, setIsTitleClick] = useState(false);
     const inputRef = useRef();
     const taskRef = useRef();
+    const addButtonRef = useRef();
 
     const handleTitleClick = () => {
         setIsTitleClick(!isTitleClick);
         if (!isTitleClick) {
             setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
         }
+    }
+
+    const handleAddButtonFocus = () => {
+        setTimeout(() => addButtonRef.current && addButtonRef.current.focus(), 0);
     }
 
     const handleCloseModal = () => {
@@ -58,6 +65,8 @@ const GoalModal = () => {
                     id: goal.id,
                     task: response.data,
                 }));
+                setIsAdd(false);
+                handleAddButtonFocus()
             })
             .catch(error => {
                 console.log(error)
@@ -78,8 +87,8 @@ const GoalModal = () => {
     return (
         <div className={s['goal-modal']}>
             <div className={s['xCircle']}>
-                <AddGoalButton buttonValue="Add Task" onClick={handleAddInput}/>
-                <button type="button" onClick={handleDeleteGoal}>Delete</button>
+                <AddGoalButton buttonValue="Add Task" refForward={addButtonRef} onClick={handleAddInput}/>
+                <button className={s['delete-button']} type="button" onClick={handleDeleteGoal}>Delete</button>
                 <XCircle onClick={handleCloseModal} />
             </div>
             <form onSubmit={(e) => e.preventDefault()}>

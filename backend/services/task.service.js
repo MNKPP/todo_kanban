@@ -12,6 +12,7 @@ const taskService = {
 
         return new TaskDto(task);
     },
+
 }
 
 export default taskService;
